@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CarTyper — Retro Arcade Typing Race for Schools</title>
+  <meta name="description" content="CarTyper is an offline-first retro arcade typing racing game for classrooms. Race adaptive AI opponents, earn coins, build your garage — no internet required." />
+  <meta property="og:title" content="CarTyper — Retro Arcade Typing Race" />
+  <meta property="og:description" content="Type fast, race hard. An offline-first typing racing game built for schools. Free, no internet required." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/shots/race.jpg" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!--
+    DEPLOY CONFIG
+    -------------
+    PLAY_URL       where the playable web build lives (copy dist/* here)
+    INSTALLER_URL  where the Windows installer lives (drop the .exe in downloads/)
+    Both are relative so the whole site/ folder can be dropped on any static host.
+  -->
+  <script>
+    window.CARTYPER_SITE = {
+      playUrl: "play/",
+      installerUrl: "downloads/CarTyper-Setup-1.3.0.exe",
+      installerSize: "121 MB",
+      version: "1.3.0"
+    };
+  </script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900">
+
+  <!-- ============ NAV ============ -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <a href="#top" class="flex items-center gap-3">
+        <img src="assets/logo.png" alt="CarTyper logo" width="40" height="40" class="h-10 w-10" />
+        <span class="font-arcade text-sm tracking-wide text-slate-900">CAR<span class="text-sky-600">TYPER</span></span>
+      </a>
+
+      <nav class="hidden items-center gap-7 md:flex" aria-label="Main">
+        <a href="#features" class="text-sm font-medium text-slate-600 transition hover:text-slate-900">Features</a>
+        <a href="#how" class="text-sm font-medium text-slate-600 transition hover:text-slate-900">How it works</a>
+        <a href="#screenshots" class="text-sm font-medium text-slate-600 transition hover:text-slate-900">Screenshots</a>
+        <a href="#teachers" class="text-sm font-medium text-slate-600 transition hover:text-slate-900">For teachers</a>
+        <a href="#download" class="text-sm font-medium text-slate-600 transition hover:text-slate-900">Download</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#" id="nav-play" class="hidden rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 sm:inline-block">Play online</a>
+        <button id="nav-toggle" class="rounded-lg border border-slate-200 p-2 text-slate-700 md:hidden" aria-label="Toggle menu" aria-expanded="false">
+          <svg id="icon-burger" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+          <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-4 pb-4 pt-2 md:hidden">
+      <a href="#features" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100">Features</a>
+      <a href="#how" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100">How it works</a>
+      <a href="#screenshots" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100">Screenshots</a>
+      <a href="#teachers" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100">For teachers</a>
+      <a href="#download" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100">Download</a>
+      <a href="#" class="mt-2 block rounded-lg bg-sky-600 px-3 py-2.5 text-center text-sm font-semibold text-white hover:bg-sky-700" data-play>Play online</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="dot-grid relative overflow-hidden">
+      <div class="mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 lg:pb-24 lg:pt-20">
+        <div class="grid items-center gap-12 lg:grid-cols-2">
+          <!-- Copy -->
+          <div class="reveal">
+            <p class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm">
+              <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+              v1.3.1 · Offline-first · Built for schools
+            </p>
+
+            <h1 class="font-arcade mt-6 text-2xl leading-relaxed text-slate-900 sm:text-3xl lg:text-4xl">
+              TYPE FAST.<br />
+              <span class="text-sky-600">RACE HARD.</span>
+            </h1>
+
+            <p class="mt-6 max-w-lg text-lg leading-relaxed text-slate-600">
+              CarTyper is a retro arcade typing race for the classroom. Race adaptive
+              AI opponents, earn coins, and build your garage — your speed is your
+              engine, and accuracy wins the race.
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <a href="#" data-play class="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-sky-600/20 transition hover:bg-sky-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72c0 .8.87 1.3 1.56.88l10.5-6.86a1.05 1.05 0 0 0 0-1.76L9.56 4.26A1.04 1.04 0 0 0 8 5.14Z"/></svg>
+                Play online — no install
+              </a>
+              <a href="#download" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-slate-400 hover:bg-slate-100">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+                Download for Windows
+              </a>
+            </div>
+
+            <p class="mt-4 text-xs font-medium uppercase tracking-wider text-slate-400">
+              Windows 10+ · No internet needed · Free forever
+            </p>
+          </div>
+
+          <!-- Screenshot in browser chrome -->
+          <div class="reveal" style="transition-delay:.12s">
+            <div class="relative">
+              <div class="rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/60">
+                <div class="flex items-center gap-2 border-b border-slate-200 px-4 py-3">
+                  <span class="h-3 w-3 rounded-full bg-rose-400"></span>
+                  <span class="h-3 w-3 rounded-full bg-amber-400"></span>
+                  <span class="h-3 w-3 rounded-full bg-emerald-400"></span>
+                  <span class="ml-3 flex-1 rounded-md bg-slate-100 px-3 py-1 text-center text-[11px] font-medium text-slate-400">cartyper.app — main menu</span>
+                </div>
+                <img src="assets/shots/menu.jpg" alt="CarTyper main menu — choose a race, lesson, or practice" class="w-full rounded-b-2xl" fetchpriority="high" />
+              </div>
+
+              <!-- Floating cars -->
+              <div class="mt-4 flex items-end justify-center gap-6 rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-lg shadow-slate-200/50 sm:gap-8">
+                <img src="assets/cars/viper.svg" alt="" class="car-bob h-10 w-16 object-contain" style="animation-delay:0s" />
+                <img src="assets/cars/blitz.svg" alt="" class="car-bob h-10 w-16 object-contain" style="animation-delay:.25s" />
+                <img src="assets/cars/default.svg" alt="" class="car-bob h-10 w-16 object-contain" style="animation-delay:.5s" />
+                <img src="assets/cars/phantom.svg" alt="" class="car-bob h-10 w-16 object-contain" style="animation-delay:.75s" />
+                <img src="assets/cars/tempest.svg" alt="" class="hidden h-10 w-16 object-contain sm:block car-bob" style="animation-delay:1s" />
+                <img src="assets/cars/apex.svg" alt="" class="hidden h-10 w-16 object-contain md:block car-bob" style="animation-delay:1.25s" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="border-y border-slate-200 bg-white">
+      <div class="mx-auto grid max-w-6xl grid-cols-2 gap-px px-4 sm:px-6 lg:grid-cols-4">
+        <div class="flex flex-col items-center gap-1 px-4 py-8 text-center">
+          <span class="font-arcade text-2xl text-sky-600">300+</span>
+          <span class="text-sm font-medium text-slate-500">built-in passages</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-4 py-8 text-center">
+          <span class="font-arcade text-2xl text-amber-600">21</span>
+          <span class="text-sm font-medium text-slate-500">cars to unlock</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-4 py-8 text-center">
+          <span class="font-arcade text-2xl text-rose-600">36</span>
+          <span class="text-sm font-medium text-slate-500">garage items</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 px-4 py-8 text-center">
+          <span class="font-arcade text-2xl text-emerald-600">0</span>
+          <span class="text-sm font-medium text-slate-500">internet required</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section id="features" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-24">
+      <div class="reveal max-w-2xl">
+        <p class="font-arcade text-xs text-sky-600">// THE GARAGE</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Everything a typing game should be</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">No ads, no pay-to-win, no cloud accounts. Just racing, rewards, and real progress you can measure.</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- 1 -->
+        <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1"/><path d="M2 7h20v10H2z"/><path d="M6 7v-2h4v2"/><path d="M8 7v-2h2v2"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">Race adaptive AI</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Up to 9 opponents with real personalities — nervous, aggressive, champion. No cheating: cars move exactly as fast as you type.</p>
+        </div>
+        <!-- 2 -->
+        <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md" style="transition-delay:.05s">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 9l2.5-5h12.9L20 9"/><path d="M2.05 9a4 4 0 0 0 7.6 1.5"/><path d="M14.55 10.5a4 4 0 0 0 7.4 0"/><path d="M2.05 9h16"/><path d="M13 9v3"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">Earn coins, build a garage</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Win races to earn coins, then spend them on 21 cars, paints, wheel rims, and exhaust trails. Purely cosmetic — skill decides every race.</p>
+        </div>
+        <!-- 3 -->
+        <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md" style="transition-delay:.1s">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">300+ built-in passages</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Animals, space, science, history, quotes, and more — across three difficulty levels. Guided lessons and practice drills included.</p>
+        </div>
+        <!-- 4 -->
+        <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md" style="transition-delay:.15s">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">Analytics that matter</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">WPM, accuracy, most-missed keys, a typing heatmap, and daily/weekly trends — so students (and teachers) see improvement.</p>
+        </div>
+        <!-- 5 -->
+        <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md" style="transition-delay:.05s">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">Teacher mode</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Password-protected. Create student accounts, reset progress, unlock content, manage text packs, and export reports.</p>
+        </div>
+        <!-- 6 -->
+        <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md" style="transition-delay:.1s">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">Achievements &amp; certificates</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">12 achievements, practice streaks, and printable PDF certificates with a unique ID as students complete each level.</p>
+        </div>
+        <!-- 7 -->
+        <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md" style="transition-delay:.15s">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0-7.07 17.07L2 22l2.93-2.93A10 10 0 1 0 12 2z"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">100% offline</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Runs on the most locked-down school PC. No internet, no accounts, no data leaving the room — everything lives locally.</p>
+        </div>
+        <!-- 8 -->
+        <div class="reveal rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md" style="transition-delay:.2s">
+          <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">One-click backup</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">Export or import a single backup file containing everything — accounts, garage, analytics, certificates, leaderboards.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section id="how" class="scroll-mt-20 border-y border-slate-200 bg-slate-100/70">
+      <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24">
+        <div class="reveal max-w-2xl">
+          <p class="font-arcade text-xs text-sky-600">// THE RACE</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">How a race works</h2>
+        </div>
+
+        <div class="mt-12 grid gap-8 md:grid-cols-3">
+          <div class="reveal rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+            <span class="font-arcade text-3xl text-slate-200">01</span>
+            <h3 class="mt-4 text-lg font-bold text-slate-900">Pick a race</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Choose Beginner, Intermediate, or Advanced — or let “Surprise me” pick a race, lesson, or drill for you.</p>
+          </div>
+          <div class="reveal rounded-2xl border border-slate-200 bg-white p-7 shadow-sm" style="transition-delay:.08s">
+            <span class="font-arcade text-3xl text-slate-200">02</span>
+            <h3 class="mt-4 text-lg font-bold text-slate-900">Type to accelerate</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Every correct keystroke pushes your car forward. A mistake stalls you until you fix it — no fake movement, ever.</p>
+          </div>
+          <div class="reveal rounded-2xl border border-slate-200 bg-white p-7 shadow-sm" style="transition-delay:.16s">
+            <span class="font-arcade text-3xl text-slate-200">03</span>
+            <h3 class="mt-4 text-lg font-bold text-slate-900">Beat the field</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Cross the finish line first to win coins, unlock achievements, and keep your practice streak alive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREENSHOTS ============ -->
+    <section id="screenshots" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-24">
+      <div class="reveal max-w-2xl">
+        <p class="font-arcade text-xs text-sky-600">// THE SHOW</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">See it in action</h2>
+      </div>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-2">
+        <figure class="reveal">
+          <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60">
+            <img src="assets/shots/race.jpg" alt="Race in progress — four cars on the highway with live standings" class="w-full" loading="lazy" />
+          </div>
+          <figcaption class="mt-3 text-sm font-medium text-slate-500">The race arena — cars, live standings, and a virtual keyboard showing your next target key.</figcaption>
+        </figure>
+
+        <figure class="reveal" style="transition-delay:.08s">
+          <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60">
+            <img src="assets/shots/garage.jpg" alt="Garage inventory with cars and customization tabs" class="w-full" loading="lazy" />
+          </div>
+          <figcaption class="mt-3 text-sm font-medium text-slate-500">Garage — 21 cars, 7 paints, wheel rims, and exhaust trails to equip.</figcaption>
+        </figure>
+
+        <figure class="reveal">
+          <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60">
+            <img src="assets/shots/shop.jpg" alt="Shop with cars for sale priced in coins" class="w-full" loading="lazy" />
+          </div>
+          <figcaption class="mt-3 text-sm font-medium text-slate-500">Shop — spend race coins on cars, paints, rims, and trails. No real money, ever.</figcaption>
+        </figure>
+
+        <figure class="reveal" style="transition-delay:.08s">
+          <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60">
+            <img src="assets/shots/menu.jpg" alt="Main menu with quick race, lesson, practice and surprise me options" class="w-full" loading="lazy" />
+          </div>
+          <figcaption class="mt-3 text-sm font-medium text-slate-500">Main menu — race, guided lessons, solo practice, or let the app surprise you.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ FOR TEACHERS ============ -->
+    <section id="teachers" class="scroll-mt-20 border-y border-slate-200 bg-white">
+      <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24">
+        <div class="reveal grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <p class="font-arcade text-xs text-sky-600">// FOR TEACHERS</p>
+            <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Made for the classroom</h2>
+            <p class="mt-4 text-lg leading-relaxed text-slate-600">
+              CarTyper was designed with schools in mind: it runs entirely offline,
+              needs no student accounts online, and gives teachers full control.
+            </p>
+            <a href="#download" class="mt-7 inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-slate-700">
+              Get CarTyper
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <ul class="space-y-4">
+            <li class="reveal flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              <span class="text-sm leading-relaxed text-slate-700"><strong class="font-semibold text-slate-900">Guest mode &amp; local accounts</strong> — students just sit down and race; no sign-ups, no emails.</span>
+            </li>
+            <li class="reveal flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4" style="transition-delay:.05s">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              <span class="text-sm leading-relaxed text-slate-700"><strong class="font-semibold text-slate-900">Teacher mode</strong> — create and manage student accounts, reset progress, unlock content, view the leaderboard, and export reports.</span>
+            </li>
+            <li class="reveal flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4" style="transition-delay:.1s">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              <span class="text-sm leading-relaxed text-slate-700"><strong class="font-semibold text-slate-900">Printable certificates</strong> — students earn PDF certificates with unique IDs for completing each typing level.</span>
+            </li>
+            <li class="reveal flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4" style="transition-delay:.15s">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              <span class="text-sm leading-relaxed text-slate-700"><strong class="font-semibold text-slate-900">No data leaves the school</strong> — everything is stored on the device. Back it up with one click and restore anywhere.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DOWNLOAD ============ -->
+    <section id="download" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-24">
+      <div class="reveal max-w-2xl">
+        <p class="font-arcade text-xs text-sky-600">// THE STARTING GRID</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Get CarTyper</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">Same game, two ways to play. Pick whichever fits your classroom.</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        <!-- Windows -->
+        <div class="reveal flex flex-col rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Windows app</h3>
+              <p class="text-sm text-slate-500">Installer · v<span data-ver></span></p>
+            </div>
+          </div>
+          <p class="mt-4 text-sm leading-relaxed text-slate-600">
+            The full desktop experience — best for school computer labs. Installs in
+            minutes and then runs forever with zero internet.
+          </p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-600">
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>Windows 10 or later</li>
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>~150 MB disk space</li>
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>Fully offline after install</li>
+          </ul>
+          <a href="#" id="installer-link" class="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-sky-600/20 transition hover:bg-sky-700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Download for Windows
+          </a>
+          <p class="mt-3 text-center text-xs text-slate-400"><span data-size></span> · Free forever</p>
+        </div>
+
+        <!-- Web -->
+        <div class="reveal flex flex-col rounded-2xl border border-sky-200 bg-gradient-to-b from-sky-50/70 to-white p-8 shadow-sm" style="transition-delay:.08s">
+          <div class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-600 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Play in the browser</h3>
+              <p class="text-sm text-slate-500">Full web version · nothing to install</p>
+            </div>
+          </div>
+          <p class="mt-4 text-sm leading-relaxed text-slate-600">
+            The complete game — races, garage, shop, achievements — running right in
+            your browser. Great for trying it out or for personal devices.
+          </p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-600">
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>Any modern browser</li>
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>Progress saves in your browser</li>
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>Identical game, same features</li>
+          </ul>
+          <a href="#" data-play class="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-slate-700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72c0 .8.87 1.3 1.56.88l10.5-6.86a1.05 1.05 0 0 0 0-1.76L9.56 4.26A1.04 1.04 0 0 0 8 5.14Z"/></svg>
+            Play online
+          </a>
+          <p class="mt-3 text-center text-xs text-slate-400">No account · No download · Free</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="checker h-1.5"></div>
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-10 sm:px-6 md:flex-row md:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/logo.png" alt="CarTyper logo" width="32" height="32" class="h-8 w-8" />
+        <div>
+          <p class="font-arcade text-xs text-slate-900">CAR<span class="text-sky-600">TYPER</span></p>
+          <p class="text-xs text-slate-400">Retro arcade typing race · v1.3.1</p>
+        </div>
+      </div>
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500" aria-label="Footer">
+        <a href="#features" class="transition hover:text-slate-900">Features</a>
+        <a href="#how" class="transition hover:text-slate-900">How it works</a>
+        <a href="#teachers" class="transition hover:text-slate-900">For teachers</a>
+        <a href="#download" class="transition hover:text-slate-900">Download</a>
+      </nav>
+      <p class="text-xs text-slate-400">© <span id="year"></span> Monyasau · Made for classrooms</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

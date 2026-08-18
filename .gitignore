@@ -1,0 +1,9 @@
+node_modules/
+
+# The Windows installer (~121 MB) exceeds GitHub's 100 MB file limit —
+# drop it into downloads/ locally right before deploying instead.
+downloads/
+
+.DS_Store
+Thumbs.db
+*.log

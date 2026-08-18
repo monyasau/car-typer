@@ -1,0 +1,106 @@
+/* ============================================================
+   CarTyper landing page — Tailwind v4 SOURCE file.
+   Build with:  npm run build:css   (or: node scripts/build-site-css.js)
+   `source(none)` + `@source` scope content scanning to the site
+   only, so the output CSS contains exactly the utilities used here.
+   ============================================================ */
+
+/* source(none): disable automatic project-wide scanning — only the explicit
+   @source below is scanned, so the build contains exactly what index.html uses. */
+@import "tailwindcss" source(none);
+
+@source "./index.html";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-arcade: "Press Start 2P", "Outfit", monospace;
+}
+
+/* Bundled fonts (copied from the app's offline-first asset set) */
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/fonts/Outfit.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Press Start 2P";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/PressStart2P.woff2") format("woff2");
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #f8fafc; /* app light bg-primary */
+    color: #0f172a; /* app light text-primary */
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: rgba(2, 132, 199, 0.18);
+  }
+}
+
+@layer utilities {
+  .font-arcade {
+    font-family: var(--font-arcade);
+  }
+}
+
+/* ---------- Reveal on scroll (main.js adds .in-view) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Dotted arcade backdrop (hero) ---------- */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(2, 132, 199, 0.13) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ---------- Idle "engine" bob for hero cars ---------- */
+@keyframes car-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.car-bob {
+  animation: car-bob 1.7s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .car-bob {
+    animation: none;
+  }
+}
+
+/* ---------- Checkered flag footer accent ---------- */
+.checker {
+  background-image:
+    linear-gradient(45deg, #0f172a 25%, transparent 25%, transparent 75%, #0f172a 75%),
+    linear-gradient(45deg, #0f172a 25%, transparent 25%, transparent 75%, #0f172a 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 8px;
+}
