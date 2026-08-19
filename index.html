@@ -16,13 +16,14 @@
     DEPLOY CONFIG
     -------------
     PLAY_URL       where the playable web build lives (copy dist/* here)
-    INSTALLER_URL  where the Windows installer lives (drop the .exe in downloads/)
-    Both are relative so the whole site/ folder can be dropped on any static host.
+    INSTALLER_URL  GitHub Release asset (exe is too big for the git repo —
+                   releases allow up to 2 GB; /releases/latest/download/<name>
+                   always points at the newest release)
   -->
   <script>
     window.CARTYPER_SITE = {
       playUrl: "play/",
-      installerUrl: "downloads/CarTyper-Setup-1.3.0.exe",
+      installerUrl: "https://github.com/monyasau/car-typer/releases/latest/download/CarTyper-Setup-1.3.0.exe",
       installerSize: "121 MB",
       version: "1.3.0"
     };
@@ -74,10 +75,6 @@
         <div class="grid items-center gap-12 lg:grid-cols-2">
           <!-- Copy -->
           <div class="reveal">
-            <p class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm">
-              <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-              v1.3.1 · Offline-first · Built for schools
-            </p>
 
             <h1 class="font-arcade mt-6 text-2xl leading-relaxed text-slate-900 sm:text-3xl lg:text-4xl">
               TYPE FAST.<br />
@@ -429,7 +426,7 @@
         <a href="#teachers" class="transition hover:text-slate-900">For teachers</a>
         <a href="#download" class="transition hover:text-slate-900">Download</a>
       </nav>
-      <p class="text-xs text-slate-400">© <span id="year"></span> Monyasau · Made for classrooms</p>
+      <p class="text-xs text-slate-400">© <span id="year"></span> Made With ♥ By Olanrewaju Olajide</p>
     </div>
   </footer>
 

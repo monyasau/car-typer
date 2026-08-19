@@ -4,8 +4,7 @@
   "private": true,
   "description": "Marketing website for CarTyper — retro arcade typing race for schools. Static site, Tailwind v4 (purged to used utilities only).",
   "scripts": {
-    "build:css": "node scripts/build-site-css.js",
-    "serve": "python -m http.server 4180"
+    "build:css": "node scripts/build-site-css.js"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

@@ -6,10 +6,13 @@
    ============================================================ */
 
 /* source(none): disable automatic project-wide scanning — only the explicit
-   @source below is scanned, so the build contains exactly what index.html uses. */
+   @source below is scanned, so the build contains exactly what index.html uses.
+   NOTE: @source paths resolve relative to THIS FILE (css/input.css), so the
+   page is one level up. If this misses, no utilities are generated and the
+   page renders unstyled — grep for .sticky/.rounded-2xl to confirm. */
 @import "tailwindcss" source(none);
 
-@source "./index.html";
+@source "../index.html";
 
 @theme {
   --font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;

@@ -63,10 +63,30 @@ rm -rf ../car-typer/play && cp -r dist ../car-typer/play
 
 ## Shipping the Windows installer
 
-GitHub rejects files over 100 MB, so `downloads/` is gitignored. Locally, drop
-the latest installer in (e.g. `CarTyper Setup 1.3.0.exe` from the app's
-`release/` folder) and keep `installerUrl` in `index.html` in sync. The
-`downloads/` folder is part of the deploy — it just isn't in git.
+GitHub caps git-tracked files at 100 MB, but **release assets allow up to
+2 GB** — the installer is published as a GitHub Release asset, not a repo file.
+The site's `installerUrl` already points at
+`https://github.com/monyasau/car-typer/releases/latest/download/CarTyper-Setup-1.3.0.exe`
+which always routes to the newest release, so future versions keep working as
+long as the asset keeps the same filename.
+
+To publish a new installer:
+
+1. Build it in the app repo (`pnpm package` → `release/CarTyper Setup X.Y.Z.exe`)
+2. Copy it into `downloads/` here (gitignored — local staging only)
+3. Upload as a release asset — web UI: **Releases → Draft a new release →
+   tag `vX.Y.Z` → drag the .exe onto the box → Publish**, or via the API:
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  -H "Content-Type: application/octet-stream" \
+  --data-binary @downloads/CarTyper-Setup-X.Y.Z.exe \
+  "https://uploads.github.com/repos/monyasau/car-typer/releases/<release_id>/assets?name=CarTyper-Setup-X.Y.Z.exe"
+```
+
+Then update `installerUrl` (and `installerSize`/`version`) in `index.html` if
+the filename changed.
 
 ## Verify locally
 
