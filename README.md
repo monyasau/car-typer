@@ -3,8 +3,9 @@
 Static marketing site for **CarTyper** — the retro arcade typing race for schools
 (app repo: [monyasau/cartyper](https://github.com/monyasau/cartyper)).
 
-Clean light mode, vanilla HTML + ~70 lines of JS, Tailwind v4 compiled to exactly
-the utilities the page uses (~6 KB CSS, no CDN, no runtime framework).
+Clean light mode, vanilla HTML + a little vanilla JS, Tailwind v4 compiled to exactly
+the utilities the page uses (no CDN, no runtime framework). Every link has a real
+`href` in the HTML, and content stays visible if JS is blocked.
 
 ```
 car-typer/
@@ -12,8 +13,9 @@ car-typer/
   css/input.css         Tailwind v4 source (fonts, custom bits, @source scan)
   css/styles.css        BUILT output — commit this, don't hand-edit
   js/main.js            mobile menu, link wiring, reveal-on-scroll
+  js/demo.js            hero typing demo + platform-aware download buttons
   assets/
-    logo.png            app logo (downscaled)
+    logo.png            app logo (96px — displayed at 40px/32px)
     favicon.png
     shots/*.jpg         real screenshots captured from the running app
     cars/*.svg          car art for the hero strip
@@ -26,15 +28,21 @@ car-typer/
 ## Deploy
 
 Upload the whole folder to any static host (GitHub Pages, Netlify, Vercel,
-nginx, your VPS). Everything is relative paths — no config required.
+nginx, your VPS). Page assets use relative paths.
+
+The one exception: social-card tags (`canonical`, `og:url`, `og:image`,
+`twitter:image`) need **absolute** URLs. They currently point at
+`https://monyasau.github.io/car-typer/` — update them in `<head>` if you deploy
+elsewhere.
 
 Link targets are configured in the `window.CARTYPER_SITE` block at the top of
-`index.html`:
+`index.html`. The same values are also written directly into the HTML (hrefs
+and fallback text) so the page works without JS — keep the two in sync:
 
 - `playUrl` — where the playable web build lives (default `play/`)
-- `installerUrl` — installer filename (default `downloads/CarTyper-Setup-1.3.0.exe`)
+- `installerUrl` — GitHub Release asset URL (default `.../releases/download/latest/CarTyper-setup.exe`)
 - `installerSize` — text under the download button
-- `version` — text under the download button
+- `version` — shown on the download card and in the footer
 
 ## Building the CSS (extract only what we need)
 
@@ -65,31 +73,22 @@ rm -rf ../car-typer/play && cp -r dist ../car-typer/play
 
 GitHub caps git-tracked files at 100 MB, but **release assets allow up to
 2 GB** — the installer is published as a GitHub Release asset, not a repo file.
-The site's `installerUrl` already points at
-`https://github.com/monyasau/car-typer/releases/latest/download/CarTyper-Setup-1.3.0.exe`
-which always routes to the newest release, so future versions keep working as
-long as the asset keeps the same filename.
+The site's `installerUrl` points at
+`https://github.com/monyasau/car-typer/releases/download/latest/CarTyper-setup.exe`
+— the asset `CarTyper-setup.exe` on the release tagged **`latest`**. The URL
+never changes, so shipping a new build means replacing that one asset.
 
 To publish a new installer:
 
 1. Build it in the app repo (`pnpm package` → `release/CarTyper Setup X.Y.Z.exe`)
-2. Copy it into `downloads/` here (gitignored — local staging only)
-3. Upload as a release asset — web UI: **Releases → Draft a new release →
-   tag `vX.Y.Z` → drag the .exe onto the box → Publish**, or via the API:
+2. Copy it into `downloads/` here as `CarTyper-setup.exe` (gitignored — local staging only)
+3. Open the **`latest`** release on GitHub → **Edit** → delete the old
+   `CarTyper-setup.exe` → drag the new one in → **Update release**
 
-```bash
-curl -X POST \
-  -H "Authorization: Bearer $GITHUB_TOKEN" \
-  -H "Content-Type: application/octet-stream" \
-  --data-binary @downloads/CarTyper-Setup-X.Y.Z.exe \
-  "https://uploads.github.com/repos/monyasau/car-typer/releases/<release_id>/assets?name=CarTyper-Setup-X.Y.Z.exe"
-```
-
-Then update `installerUrl` (and `installerSize`/`version`) in `index.html` if
-the filename changed.
+Then update `installerSize` in `index.html` if the size changed.
 
 ## Verify locally
 
 ```bash
-npm run serve        # http://localhost:4180
+npm run serve        # http://localhost:4180  (npx serve)
 ```

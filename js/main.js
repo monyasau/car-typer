@@ -6,17 +6,22 @@
   var CFG = window.CARTYPER_SITE || {};
 
   /* ---------- Wire up links from the deploy config ---------- */
-  var play = CFG.playUrl || "play/";
-  document.querySelectorAll("[data-play]").forEach(function (el) {
-    el.href = play;
-  });
+  /* The HTML already carries working hrefs; this only applies overrides. */
+  if (CFG.playUrl)
+    document.querySelectorAll("[data-play]").forEach(function (el) {
+      el.href = CFG.playUrl;
+    });
 
   var installer = document.getElementById("installer-link");
   if (installer && CFG.installerUrl) installer.href = CFG.installerUrl;
-  var ver = document.querySelector("[data-ver]");
-  if (ver && CFG.version) ver.textContent = CFG.version;
-  var size = document.querySelector("[data-size]");
-  if (size && CFG.installerSize) size.textContent = CFG.installerSize;
+  if (CFG.version)
+    document.querySelectorAll("[data-ver]").forEach(function (el) {
+      el.textContent = CFG.version;
+    });
+  if (CFG.installerSize)
+    document.querySelectorAll("[data-size]").forEach(function (el) {
+      el.textContent = CFG.installerSize;
+    });
 
   /* ---------- Mobile menu ---------- */
   var toggle = document.getElementById("nav-toggle");
@@ -62,6 +67,9 @@
       el.classList.add("in-view");
     });
   }
+
+  /* Tell the <head> fallback that reveals are wired up (see index.html). */
+  window.__cartyperReady = true;
 
   /* ---------- Footer year ---------- */
   var year = document.getElementById("year");
