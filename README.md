@@ -1,94 +1,82 @@
-# CarTyper Website
+<p align="center">
+  <img src="assets/logo.png" alt="CarTyper logo" width="96" height="96" />
+</p>
 
-Static marketing site for **CarTyper** — the retro arcade typing race for schools
-(app repo: [monyasau/cartyper](https://github.com/monyasau/cartyper)).
+<h1 align="center">CarTyper</h1>
 
-Clean light mode, vanilla HTML + a little vanilla JS, Tailwind v4 compiled to exactly
-the utilities the page uses (no CDN, no runtime framework). Every link has a real
-`href` in the HTML, and content stays visible if JS is blocked.
+<p align="center">
+  <strong>Type fast. Race hard.</strong><br />
+  A retro arcade typing race for the classroom — free, and it works offline.
+</p>
 
-```
-car-typer/
-  index.html            the whole page
-  css/input.css         Tailwind v4 source (fonts, custom bits, @source scan)
-  css/styles.css        BUILT output — commit this, don't hand-edit
-  js/main.js            mobile menu, link wiring, reveal-on-scroll
-  js/demo.js            hero typing demo + platform-aware download buttons
-  assets/
-    logo.png            app logo (96px — displayed at 40px/32px)
-    favicon.png
-    shots/*.jpg         real screenshots captured from the running app
-    cars/*.svg          car art for the hero strip
-    fonts/*.woff2       Outfit + Press Start 2P (bundled, offline-first)
-  play/                 THE WEB APP — copy of the app's built dist/ (full game)
-  downloads/            Windows installer goes here (gitignored — see below)
-  scripts/build-site-css.js   CSS build (postcss, no network needed)
-```
+<p align="center">
+  <a href="https://github.com/monyasau/car-typer/releases/download/latest/CarTyper-setup.exe"><strong>Download for Windows</strong></a>
+  ·
+  <a href="https://github.com/monyasau/car-typer/releases">Releases</a>
+  ·
+  <a href="https://github.com/monyasau/car-typer/issues">Report an issue</a>
+</p>
 
-## Deploy
+![A CarTyper race in progress: four cars on the highway, live standings, and an on-screen keyboard with finger guides](assets/shots/race.jpg)
 
-Upload the whole folder to any static host (GitHub Pages, Netlify, Vercel,
-nginx, your VPS). Page assets use relative paths.
+## What is CarTyper?
 
-The one exception: social-card tags (`canonical`, `og:url`, `og:image`,
-`twitter:image`) need **absolute** URLs. They currently point at
-`https://monyasau.github.io/car-typer/` — update them in `<head>` if you deploy
-elsewhere.
+CarTyper turns typing practice into a race. Every correct keystroke pushes your
+car forward; a mistake stalls it until you fix it. Students race adaptive AI
+opponents, earn coins, and spend them on cars and upgrades for their garage.
 
-Link targets are configured in the `window.CARTYPER_SITE` block at the top of
-`index.html`. The same values are also written directly into the HTML (hrefs
-and fallback text) so the page works without JS — keep the two in sync:
+- **Race adaptive AI** — up to 9 rivals with their own personalities
+- **Lessons, drills & 300+ passages** — three difficulty levels
+- **Garage & shop** — 21 cars plus paints, rims, and exhaust trails, bought with coins earned by racing (purely cosmetic)
+- **Progress tracking** — WPM, accuracy, most-missed keys, a typing heatmap, achievements, and streaks
+- **Teacher mode** — password-protected student management, reports, and printable certificates
+- **Local-first** — no cloud accounts; student data stays on the device, with one-file backup and restore
 
-- `playUrl` — where the playable web build lives (default `play/`)
-- `installerUrl` — GitHub Release asset URL (default `.../releases/download/latest/CarTyper-setup.exe`)
-- `installerSize` — text under the download button
-- `version` — shown on the download card and in the footer
+## Get it
 
-## Building the CSS (extract only what we need)
+| | Windows app | Browser version |
+| --- | --- | --- |
+| **How** | [Download the installer](https://github.com/monyasau/car-typer/releases/download/latest/CarTyper-setup.exe) (v1.6.2, ~121 MB) | Open the site and press **Play online** |
+| **Best for** | School computer labs | Trying it out, Macs, Chromebooks |
+| **Operating system** | Windows 10 or later | Windows, macOS, ChromeOS, or Linux |
+| **Memory** | 1 GB RAM minimum | — |
+| **Disk space** | ~150 MB | Nothing to install |
+| **Internet** | Only to download | Only to open the page |
+| **Keyboard** | Physical keyboard required | Physical keyboard required |
 
-The output CSS contains only utilities actually used in `index.html` (Tailwind
-v4 content scanning via `@source`; auto project-wide detection is disabled with
-`source(none)` — without it the build pulls in thousands of unused utilities).
+> **"Windows protected your PC"?** The installer isn't code-signed yet, so
+> SmartScreen warns about it. Click **More info → Run anyway**.
+>
+> **Installing on a whole lab?** Run `CarTyper-setup.exe /S` for a silent
+> per-user install, or `CarTyper-setup.exe /S /allusers` (as admin) for every
+> account on the PC.
 
-```bash
-npm install          # one-time: postcss + @tailwindcss/postcss + autoprefixer
-npm run build:css    # node scripts/build-site-css.js
-```
+## Frequently asked questions
 
-Rebuild after editing classes in `index.html`. No network needed at build time
-after the one-time install.
+**Is it free?**
+Yes. There are no in-app purchases — coins are earned only by racing.
 
-## Refreshing the playable web app
+**Does it need the internet?**
+No. The Windows app works fully offline once installed. The browser version
+only needs a connection to open the page.
 
-`play/` is the built web game (full feature parity — races, garage, shop,
-achievements — on a localStorage backend). Refresh it after app updates:
+**Where is student data stored?**
+On the device. The Windows app keeps it in each Windows user's profile
+(`%APPDATA%\CarTyper`); the browser version keeps it in that browser's storage.
+To move everything to another computer, use **Backup → Export** in the app and
+import the file on the other machine.
 
-```bash
-# from the app repo (monyasau/cartyper): the built dist/ already uses
-# relative asset paths, so it works in a subfolder
-rm -rf ../car-typer/play && cp -r dist ../car-typer/play
-```
+**Does it need admin rights?**
+No — it installs for the current Windows user by default. Installing for all
+users on a PC needs admin.
 
-## Shipping the Windows installer
+**Does it work on Macs, Chromebooks, or tablets?**
+Yes, through the browser version. A physical keyboard is required.
 
-GitHub caps git-tracked files at 100 MB, but **release assets allow up to
-2 GB** — the installer is published as a GitHub Release asset, not a repo file.
-The site's `installerUrl` points at
-`https://github.com/monyasau/car-typer/releases/download/latest/CarTyper-setup.exe`
-— the asset `CarTyper-setup.exe` on the release tagged **`latest`**. The URL
-never changes, so shipping a new build means replacing that one asset.
+## Get help
 
-To publish a new installer:
+Found a bug or have a question? [Open an issue](https://github.com/monyasau/car-typer/issues).
 
-1. Build it in the app repo (`pnpm package` → `release/CarTyper Setup X.Y.Z.exe`)
-2. Copy it into `downloads/` here as `CarTyper-setup.exe` (gitignored — local staging only)
-3. Open the **`latest`** release on GitHub → **Edit** → delete the old
-   `CarTyper-setup.exe` → drag the new one in → **Update release**
+---
 
-Then update `installerSize` in `index.html` if the size changed.
-
-## Verify locally
-
-```bash
-npm run serve        # http://localhost:4180  (npx serve)
-```
+<p align="center">Made with ♥ by Olanrewaju Olajide</p>
